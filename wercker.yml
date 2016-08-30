@@ -34,7 +34,7 @@ build:
             code: npm i -g npm
 
         - npm-install:
-            options: -ddd --fetch-retry-mintimeout 10000 --fetch-retry-maxtimeout 11000 --registry http://registry.npmjs.org/
+            options: -d --fetch-retry-mintimeout 10000 --fetch-retry-maxtimeout 11000 --registry http://registry.npmjs.org/
 
         - script:
             name: build
