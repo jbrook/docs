@@ -10,7 +10,7 @@ dev:
             code: npm install -g npm@2
 
         - npm-install:
-            options: --loglevel verbose
+            options: --fetch-retry-mintimeout 10000 --fetch-retry-maxtimeout 11000 --registry http://registry.npmjs.org/
 
         - script:
             name: npm run build
