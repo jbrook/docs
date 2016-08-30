@@ -9,8 +9,7 @@ dev:
             name: update npm
             code: npm install -g npm@2
 
-        - npm-install:
-            options: --fetch-retry-mintimeout 10000 --fetch-retry-maxtimeout 11000 --registry http://registry.npmjs.org/
+        - npm-install
 
         - script:
             name: npm run build
@@ -34,7 +33,8 @@ build:
             name: install new version of npm
             code: npm i -g npm
 
-        - npm-install
+        - npm-install:
+            options: -ddd --fetch-retry-mintimeout 10000 --fetch-retry-maxtimeout 11000 --registry http://registry.npmjs.org/
 
         - script:
             name: build
