@@ -9,7 +9,8 @@ dev:
             name: update npm
             code: npm install -g npm@2
 
-        - npm-install
+        - npm-install:
+            options: --loglevel verbose
 
         - script:
             name: npm run build
