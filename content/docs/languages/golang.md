@@ -19,7 +19,7 @@ language and wercker.
 The Docker Hub has a
 [container](https://registry.hub.docker.com/_/golang/) that has multiple versions of `go`
 installed. There is also an official Google
-[container](https://registry.hub.docker.com/u/google/golang/) available
+[container](https://hub.docker.com/_/golang/) available
 as well. If you want to cross compile using
 [gox](https://github.com/mitchellh/gox) you can leverage the container created by
 [tcnksm](https://registry.hub.docker.com/u/tcnksm/gox/).
@@ -28,7 +28,7 @@ Define your selected container in your [wercker.yml
 file](/learn/basics/configuration.html) using the `box` clause.
 
 ```yaml
-box: google/golang
+box: golang
 ```
 
 ### Useful steps
@@ -78,7 +78,7 @@ Below you can find the entire `wercker.yml` file for a golang application.
 ```yaml
 # use the official google golang container
 
-box: google/golang
+box: golang
 
 # Build definition
 build:

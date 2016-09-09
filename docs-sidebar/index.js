@@ -51,15 +51,33 @@ function createClass () {
 // render the sidebar
 // obj, obj, fn -> obj
 function renderSidebar (props, state, setState) {
-  var base = getWindowUrl();
   var currentSection = getCurrentSection();
   var currentArticle = '';
   if (currentSection !== 'index') {
     currentArticle = getCurrentArticle();
   }
 
+  var input;
+
+  const base = getWindowUrl();
+  if (base === 'docs') {
+    input = dom.section({className: 'section-search'},
+      dom.form(null,
+        dom.input({
+          type: 'text',
+          placeholder: 'search in ' + base,
+          className: 'search-input',
+          id: 'algolia-search'
+        }),
+        dom.img({src: '/images/icon-magnifier.svg', alt: 'search'})
+        )
+      );
+  } else {
+    input = renderSearch({base: base, data: props.data, setState: setState});
+  }
+
   return dom.section({className: 'section-sidebar'},
-    renderSearch({base: base, data: props.data, setState: setState}),
+    input,
     dom.section({className: 'sidebar-list'},
       createList(state.data, state.search, props.data, currentSection, currentArticle)
     )

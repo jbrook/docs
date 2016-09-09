@@ -39,7 +39,6 @@ The `internal/docker-push` step supports the following properties:
 - `repository`: The name of the repository. When using a non Docker Hub
   repository, prefix the value with the host of the private repository.
 - `tag`: A space or comma separated list of Docker tags that will be applied to the built container. Wercker will automatically apply a tag with the build number, and if `tag` is left blank wercker will use the docker default of `latest`.
-- `force-tags`: Force apply tags on docker images built by wercker (see [docker documentation](https://docs.docker.com/engine/reference/api/docker_remote_api_v1.20/#tag-an-image-into-a-repository)). Defaults to true.
 - `ports`: Comma separated list of ports which can be exposed. The number can
   end with `/tcp` or `/udp`. If omitted,`/tcp` will be used. This is the
   equivalent of `EXPOSE` in a Dockerfile.
@@ -63,10 +62,10 @@ The `internal/docker-push` step supports the following properties:
 - `message`: Set a comment on the layer.
 - `registry`: The endpoint of the registry. Leave empty for pushes to the
   Docker hub. For pushes to other registries, it should start with `https://`
-  and should be the same as the prefix of the `repository`.
+  and should be the same as the prefix of the `repository`. Append `/v2` to the URL to push to registries that support V2 of the registry API.
 - `user`: String value specifying the user inside the container.
-- `env` - A list of environment variables in the form of `["VAR=value"[,"VAR2=value2"]]`. Can be delimited by spaces or commas.
-- `labels` - Adds a map of labels to a container. To specify a map, pass your labels into the `wercker.yml` file in this format `["LABEL=label"[,"LABEL2=label2"]]`. Can be delimited by spaces or commas.
+- `env` - A list of environment variables in the form of `"VAR=value","VAR2=value2"`. Can be delimited by spaces or commas.
+- `labels` - Adds a map of labels to a container. To specify a map, pass your labels into the `wercker.yml` file in this format `"LABEL=label","LABEL2=label2"`. Can be delimited by spaces or commas.
 - `stopsignal` - Signal to stop a container as a string or unsigned integer. `SIGTERM` by default.
 
 It is possible to use environment variables inside all properties, these will
@@ -122,8 +121,7 @@ To run this, you would do:
 wercker dev --publish 5000
 ```
 
-And once it loads, browse to your docker host (either localhost on linux, or
-with boot2docker usually  on 192.168.59.103) on port 5000 to see your app running.
+And once it loads, browse to your docker host on port 5000 to see your app running.
 For your convenience, we'll tell you the IP once the step runs.
 
 As you make changes to your code, the app will be reloaded, but the npm-install
@@ -132,6 +130,21 @@ steps will not be run again.
 Without the "reload: true" the code will only be run once, which is useful if
 your development server has its own reloading semantics (or is only loading
 static files).
+
+#### Tuning open file limits on OSX
+
+The `internal/watch` step uses [kqueue](https://en.wikipedia.org/wiki/Kqueue)
+on OS X. Kqueue must open each file that it watches, which means projects with
+many files may run into system limits. This usually manifests itself as
+a "too many open files" error. You can adjust these limits by running
+
+```
+sysctl -w kern.maxfiles=20480 (or whatever number you choose)
+sysctl -w kern.maxfilesperproc=18000 (or whatever number you choose)
+```
+
+Thanks to github user [@stvnwrgs](https://github.com/stvnwrgs) for posting
+this fix.
 
 ### <a name="internal-shell" class="anchor"></a>internal/shell
 The `internal/shell` step is pretty simple: it drops you into a shell as soon
