@@ -153,4 +153,4 @@ moment it is not possible to transfer an application back to a user or to anothe
 
 #### Delete application
 
-*“Danger, Will Robinson!”* Here you can choose to delete your application and all its settings.
+*“Danger, Will Robinson!”* Here you can choose to delete your application and all its settings. Clicking this button will delete your application, all its pipeline executions, environment variables and settings. There is no recovering from this.
