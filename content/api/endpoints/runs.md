@@ -190,7 +190,7 @@ Get the steps for a run.
 Returns an array of `step` objects.
 
 ***
-`GET /api/v3/:runId/steps`
+`GET /api/v3/runs/:runId/steps`
 ***
 
 #### Response
