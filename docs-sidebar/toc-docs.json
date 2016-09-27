@@ -24,6 +24,7 @@
      "containers",
      "private-containers.md",
      "pushing-containers.md",
+     "multiple-tags.md",
      "minimal-containers.md",
      "entrypoint.md"
   ],
