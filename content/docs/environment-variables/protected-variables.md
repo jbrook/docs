@@ -6,9 +6,13 @@ information via the interface. The behavior of the variables during pipeline run
 
 Protected variables are not displayed/logged during the setup environment step
 values are not shown in the settings tab and can only be set, not read back.
-This behavior is optional for variables of type `text`, `SSH key pairs` however
-are automatically marked as protected.
+The behavior is optional for regular environment variables, SSH keys generated
+by Wercker will always mark the private key as protected.
 
-> Please not that the value of a protected environment variable is not available to copy or edit.
+Once a protected environment value has been created it cannot be read from the
+interface. The value can be overwritten by specifying a new value. The name can
+also be changed in which case the value is kept as it was before but the name
+is updated. This is useful if you want to change the name but don't have access
+to the original value.
 
 [Read more on creating env vars &rsaquo;](/docs/environment-variables/creating-env-vars.html)

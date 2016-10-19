@@ -1,30 +1,34 @@
 ## Creating environment variables
 
-The interface supports two types of data, this article will show how to create
-both a `text` and `SSH Key pair` environment variable.
+Environment variables can be added on an organization, an application and a
+pipeline. When running the pipeline environment variables will be merged from
+these 3 targets into a unified list that is made available to your pipeline. In
+case of duplicate names lower level ones override the higher level ones (for
+instance `NODE_ENV` in pipeline will override `NODE_ENV` in an application).
 
-* [Creating a text environment variable](#text-env-var)
-* [Creating a SSH key pair environment variable](#ssh-env-var)
+Environment variables include text fields and ssh keys.
 
 ### <a name="text-env-var" class="anchor"></a>Creating a text environment variable
 
 Creating a new environment variable is as simple as filling in a name, value and
-hiting Save. The next pipeline run you will trigger now has the environment variable
+hitting Save. The next pipeline run you will trigger now has the environment variable
 available in its pipeline.
 
+![Form to create new environment variable](/images/creating-env-vars_1.png)
 
-> Please not that the name has to start with a letter and after that the following
-characters are supported: 'a-z', '0-9' and '_'
-
-![image](/images/creating-env-vars_1.jpg)
+If you check the `Protected` checkbox the value can only be read out in the
+actual build and won't be made visible anywhere in the interface. Use this to
+protect sensitive data such as passwords. [Read more on protected env vars
+&rsaquo;](/docs/environment-variables/protected-variables.html)
 
 #### How to use it
 
 All environment variable that are available need to be used by adding a `$` character.
-The `SLACK_URL` created in the image above can be used in your wercker.yml as `$SLACK_URL`.
+For instance a `SLACK_URL` environment variable  can be used in your
+wercker.yml as `$SLACK_URL`.
 
 Example how you to use a environment variable with our
-[Slack notify step](https://app.wercker.com/#applications/54d4a6c742494161430000f5/tab/details).
+[Slack notify step](https://app.wercker.com/applications/54d4a6c742494161430000f5/tab/details).
 
 ```yaml
 build:
@@ -35,30 +39,17 @@ build:
             username: myamazingbotname
 ```
 
-#### Protected environment variable
+### <a name="ssh-env-var" class="anchor"></a>Creating a SSH key pair
+environment variables
 
-`Text` environment variable have the option to be set to `protected`.
-[Read more on protected env vars &rsaquo;](/docs/environment-variables/protected-variables.html)
-
-### <a name="ssh-env-var" class="anchor"></a>Creating a SSH key pair environment variable
-
-![image](/images/creating-env-vars_2.jpg)
+![+ Generate SSH Keys](/images/creating-env-vars_2.png)
 
 Another common type of information used during deploys (but also during builds)
-are `SSH key pairs`. Wercker can help you generate them for you and will only expose
-the public part of the pair via the interface. During a pipeline run, the key pair
-is exposed via two environment variables ending with: `_PRIVATE` and `_PUBLIC`.
-
-To use the SSH key pairs in wercker, you have to do two things:
-
-* Let Wercker generate a pair, [read more on creating a SSH key pair &rsaquo;](/docs/ssh-keys/generating-ssh-keys.html)
-* Create a variable
-
-Instead of `text`, choose the `SSH Key pair` option, and select the `SSH Key pair`
-you just created.
-
-When you create a new variable for the `SSH key pair`, you will notice that you
-are actually creating two environment variables that are based on the name you are entering.
+are SSH key pairs. Wercker can help you generate them for you and will only expose
+the public part of the pair via the interface. Wercker will generate two
+environment variables for you ending with `_PRIVATE` and `_PUBLIC`. The private
+SSH key is used in the build and you should copy the public one to the
+destination.
 
 For instance if you created an `SSH key pair` to use as a bitbucket deploy key,
 you may want to name the variable `DEPLOY_KEY`. During the pipeline
