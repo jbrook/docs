@@ -28,7 +28,8 @@ deploy:
 
 ### Add ssh key pipeline step
 
-Using this step in combination with an SSH key allows you to use that key for SSH operations, such as cloning a private repository:
+Using this step in combination with an SSH key allows you to use that key for
+SSH operations, such as cloning a private repository:
 
 ```yaml
 build:
@@ -36,6 +37,13 @@ build:
         - add-ssh-key:
             keyname: MYPACKAGE_KEY
 ```
+
+> Keep in mind that if your environment variables are `MYPACKAGE_KEY_PUBLIC`
+> and `MYPACKAGE_KEY_PRIVATE` the keyname should only be `MYPACKAGE_KEY`.
+
+As with environment variables if the same ssh key has been specified on an
+organization or application the lower level will override the higher level
+one (organization - application - pipeline).
 
 Now your SSH key can be used to clone private repositories during a pipeline run.
 This solution works as long as we clone via SSH (i.e. not using https).
