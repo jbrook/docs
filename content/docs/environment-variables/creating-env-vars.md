@@ -10,8 +10,11 @@ Environment variables include text fields and ssh keys.
 
 ### <a name="text-env-var" class="anchor"></a>Creating a text environment variable
 
+First choose where you want to create your environment variable: on the
+organization, on the application or on the pipeline.
+
 Creating a new environment variable is as simple as filling in a name, value and
-hitting Save. The next pipeline run you will trigger now has the environment variable
+hitting Add. The next pipeline run you will trigger now has the environment variable
 available in its pipeline.
 
 ![Form to create new environment variable](/images/creating-env-vars_1.png)
@@ -27,8 +30,8 @@ All environment variable that are available need to be used by adding a `$` char
 For instance a `SLACK_URL` environment variable  can be used in your
 wercker.yml as `$SLACK_URL`.
 
-Example how you to use a environment variable with our
-[Slack notify step](https://app.wercker.com/applications/54d4a6c742494161430000f5/tab/details).
+Example of how you to use a environment variable with our
+[Slack notify step](https://app.wercker.com/applications/54d4a6c742494161430000f5/tab/details):
 
 ```yaml
 build:
@@ -39,7 +42,7 @@ build:
             username: myamazingbotname
 ```
 
-### <a name="ssh-env-var" class="anchor"></a>Creating a SSH key pair
+### <a name="ssh-env-var" class="anchor"></a>Creating an SSH key pair
 environment variables
 
 ![+ Generate SSH Keys](/images/creating-env-vars_2.png)
@@ -56,4 +59,4 @@ you may want to name the variable `DEPLOY_KEY`. During the pipeline
 run you will now have two environment variables: `$DEPLOY_KEY_PRIVATE`
 and `$DEPLOY_KEY_PUBLIC`.
 
-
+[Read more on generaging ssh keys &rsaquo;](/docs/ssh-keys/generating-ssh-keys.html)
