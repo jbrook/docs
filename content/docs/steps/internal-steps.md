@@ -65,7 +65,7 @@ The `internal/docker-push` step supports the following properties:
   and should be the same as the prefix of the `repository`. Append `/v2` to the URL to push to registries that support V2 of the registry API.
 - `user`: String value specifying the user inside the container.
 - `env` - A list of environment variables in the form of `"VAR=value","VAR2=value2"`. Can be delimited by spaces or commas.
-- `labels` - Adds a map of labels to a container. To specify a map, pass your labels into the `wercker.yml` file in this format `"LABEL=label","LABEL2=label2"`. Can be delimited by spaces or commas.
+- `labels` - Adds a map of labels to a container. To specify a map, pass your labels into the `wercker.yml` file in this format `"LABEL=label LABEL2=label2"`.
 - `stopsignal` - Signal to stop a container as a string or unsigned integer. `SIGTERM` by default.
 
 It is possible to use environment variables inside all properties, these will
